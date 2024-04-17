@@ -1,0 +1,40 @@
+version: '3.3'
+
+services:
+  database:
+    image: postgres
+    volumes:
+      - zadanie-db-volume:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  api:
+    build: .
+    command: sh docker-entrypoint.sh
+    environment:
+      - PYTHONIOENCODING=utf-8
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "4444:4444"
+    volumes:
+      - ./:/usr/src/app
+    depends_on:
+      - database
+      - redis
+  redis:
+    image: redis
+    restart: always
+  test:
+    build: .
+    command: sh docker-testentrypoint.sh
+    environment:
+      - PYTHONIOENCODING=utf-8
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./:/usr/src/app
+    depends_on:
+      - database
+volumes:
+  zadanie-db-volume:

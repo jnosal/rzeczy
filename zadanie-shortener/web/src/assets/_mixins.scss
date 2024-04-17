@@ -1,0 +1,10 @@
+@mixin clickable-item() {
+  outline: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  user-select: none;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+}

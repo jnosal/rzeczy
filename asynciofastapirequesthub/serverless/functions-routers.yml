@@ -1,0 +1,26 @@
+WebRouterHandler:
+  handler: src/handlers/api/web.handler
+  memorySize: 512
+  events:
+    - http:
+        method: ANY
+        path: /{proxy+}
+        cors:
+          origin: '*'
+          headers:
+            - authorization
+            - cache-control
+            - content-type
+            - edge-control
+            - pragma
+            - x-amz-date
+            - x-amz-security-token
+            - x-amz-user-agent
+            - x-api-key
+            - x-api-version
+            - x-ref-code
+            - x-session-id
+            - x-gph-auth
+            - sentry-trace
+            - baggage
+          allowCredentials: false

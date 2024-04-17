@@ -1,0 +1,20 @@
+taskJobsHandler:
+  handler: src/handlers/tasks/jobs.handler
+  memorySize: 2048
+  reservedConcurrency: 2
+  events:
+    - sqs:
+        arn:
+          Fn::GetAtt:
+            - JobsQueue
+            - Arn
+        batchSize: 1
+
+
+taskExpireJobsResultsHandler:
+  handler: src/handlers/tasks/jobs_results_expire.handler
+  timeout: 120
+  reservedConcurrency: 1
+  memorySize: 256
+  events:
+    - schedule: cron(0 3 * * ? *) # daily 3 am

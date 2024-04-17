@@ -1,0 +1,14 @@
+@import "mixins";
+@import "transitions";
+
+$color-page-bg: #f7f8fc;
+
+$color-primary: #4a24ac;
+$color-secondary: #363c56;
+
+$color-grey-light: #fafafa;
+$color-grey-dark: #aaa;
+$color-grey-dark-2: #676c8020;
+
+$z-index-loader: 2000;
+$breakpoint-small: 639px;

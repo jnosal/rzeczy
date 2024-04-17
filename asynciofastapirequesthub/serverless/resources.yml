@@ -1,0 +1,32 @@
+DLQueue:
+  Type: AWS::SQS::Queue
+  Properties:
+    QueueName: ProviderHubApiDLQueue${self:provider.stage}
+    MessageRetentionPeriod: 1209600
+JobsQueue:
+  Type: AWS::SQS::Queue
+  Properties:
+    QueueName: ProviderHubApiJobsQueue${self:provider.stage}
+    VisibilityTimeout: 1800
+    MessageRetentionPeriod: 1209600
+    RedrivePolicy:
+      deadLetterTargetArn:
+        Fn::GetAtt:
+          - DLQueue
+          - Arn
+      maxReceiveCount: 1 # No retries
+JobsS3Bucket:
+  Type: AWS::S3::Bucket
+  Properties:
+    BucketName: provider-hub-api-jobs-${self:provider.stage}
+    CorsConfiguration:
+      CorsRules:
+        - AllowedOrigins:
+            - '*'
+          AllowedHeaders:
+            - '*'
+          AllowedMethods:
+            - GET
+            - HEAD
+            - POST
+          MaxAge: 3000

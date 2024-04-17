@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  localstack:
+    image: localstack/localstack
+    ports:
+      - '4566:4566'
+      - '8885:8885'
+    environment:
+      - SERVICES=s3,sqs

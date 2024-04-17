@@ -1,0 +1,95 @@
+@import "@/assets/settings";
+
+.app-loader {
+  &__overlay {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    contain: layout;
+    pointer-events: none;
+    z-index: $z-index-loader;
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  &__container {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 55px;
+    margin-left: 10px;
+  }
+
+  &__ring {
+    width: 60px;
+    height: 60px;
+    border: 12px solid transparent;
+    border-radius: 50%;
+    position: absolute;
+    animation-duration: 3s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+
+    &:nth-child(1) {
+      border-bottom-color: $color-primary;
+      animation-name: rotate1;
+    }
+
+    &:nth-child(2) {
+      border-right-color: $color-primary;
+      animation-name: rotate2;
+    }
+
+    &:nth-child(3) {
+      border-top-color: $color-primary;
+      animation-name: rotate3;
+    }
+  }
+}
+
+@keyframes rotate1 {
+  0% {
+    transform: rotateZ(0);
+  }
+  25% {
+    transform: rotateZ(360deg);
+  }
+  50% {
+    transform: rotateZ(0);
+  }
+  100% {
+    transform: rotateZ(0);
+  }
+}
+
+@keyframes rotate2 {
+  0% {
+    transform: rotateZ(0);
+  }
+  25% {
+    transform: rotateZ(-360deg);
+  }
+  50% {
+    transform: rotateZ(0);
+  }
+  100% {
+    transform: rotateZ(0);
+  }
+}
+
+@keyframes rotate3 {
+  0% {
+    transform: rotateZ(0);
+  }
+  25% {
+    transform: rotateZ(360deg);
+  }
+  50% {
+    transform: rotateZ(0);
+  }
+  100% {
+    transform: rotateZ(0);
+  }
+}

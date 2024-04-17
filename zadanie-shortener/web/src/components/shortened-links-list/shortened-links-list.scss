@@ -1,0 +1,18 @@
+.shortened-links-list {
+  &__link {
+    background: white;
+    margin: 8px 0;
+    box-shadow: 0 16px 24px 0 #e9edf2e5;
+
+    &:first-of-type {
+      border-radius: 20px 20px 8px 8px;
+    }
+    &:last-of-type {
+      border-radius: 8px 8px 20px 20px;
+    }
+
+    .shortened-links-list--one & {
+      border-radius: 20px;
+    }
+  }
+}

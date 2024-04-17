@@ -1,0 +1,39 @@
+@import "@/assets/settings";
+
+.shortened-link {
+  padding: 20px 16px;
+  border-radius: 8px;
+  background: $color-grey-light;
+
+  &__source {
+    color: $color-secondary;
+    font-size: 12px;
+    margin-bottom: 8px;
+    font-weight: normal;
+  }
+  &__result {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &-text {
+      color: $color-primary;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    &-copy {
+      width: 18px;
+      height: 21px;
+
+      @include clickable-item;
+    }
+    &-image {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__copied {
+    font-size: 9px;
+  }
+}

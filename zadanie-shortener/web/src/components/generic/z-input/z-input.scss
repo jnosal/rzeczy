@@ -1,0 +1,37 @@
+@import "@/assets/settings";
+
+.z-input {
+  &__box {
+    overflow: hidden;
+
+    .z-input--primary & {
+      background: white;
+      border-bottom: 1px solid $color-primary;
+    }
+    .z-input--medium & {
+      padding: 8px 0;
+    }
+  }
+
+  &__input {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    width: 100%;
+    color: $color-secondary;
+
+    &::placeholder {
+      color: $color-grey-dark;
+      font-size: 12px;
+      font-weight: 500;
+    }
+  }
+
+  &__label {
+    .z-input--primary & {
+      font-size: 12px;
+      font-weight: 400;
+      color: $color-primary;
+    }
+  }
+}

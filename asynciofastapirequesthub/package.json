@@ -1,0 +1,23 @@
+{
+  "name": "provider-hub-api",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "clean-reqs-cache": "sls requirements cleanCache",
+    "start-offline": ". .venv/bin/activate && nodemon --ext py,js,json --exec env TZ=utc sls offline start --noPrependStageInUrl --stage local --host 0.0.0.0 --httpPort 4000 --lambdaPort 3003",
+    "deploy-stg": "npm run clean-reqs-cache && sls deploy --stage stg --region eu-central-1 --verbose --aws-profile provider",
+    "deploy-stg-venv": ". .venv/bin/activate && npm run deploy-stg",
+    "deploy-prod": "npm run clean-reqs-cache && sls deploy --stage prod --region eu-central-1 --verbose --aws-profile provider",
+    "deploy-prod-venv": ". .venv/bin/activate && npm run deploy-prod"
+  },
+  "author": "Jacek Nosal",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.0",
+    "serverless": "^3.38.0",
+    "serverless-deployment-bucket": "^1.6.0",
+    "serverless-offline": "^13.3.3",
+    "serverless-plugin-log-retention": "^2.0.0",
+    "serverless-python-requirements": "^6.0.1"
+  }
+}

@@ -1,0 +1,70 @@
+service: provider-hub-api
+configValidationMode: error
+useDotenv: true
+
+plugins:
+  - serverless-offline
+  - serverless-python-requirements
+  - serverless-plugin-log-retention
+  - serverless-deployment-bucket
+
+package:
+  excludeDevDependencies: true
+  exclude:
+    - .serverless/**
+    - tests/**
+    - .venv/**
+    - .serverless/**
+    - package.json
+    - package-lock.json
+    - .pytest_cache
+    - node_modules/**
+
+provider:
+  deploymentBucket:
+    name: provider-hub-api-deployment-${self:provider.stage}
+  name: aws
+  runtime: python3.11
+  stage: ${opt:stage,'local'}
+  region: ${env:DEFAULT_AWS_REGION}
+  timeout: 900
+  versionFunctions: false
+  environment:
+    ENV_NAME: ${opt:stage,'local'}
+    DEFAULT_AWS_REGION: ${env:DEFAULT_AWS_REGION}
+    API_KEY_HEADER_VALUE: ${env:API_KEY_HEADER_VALUE}
+    SENTRY_DSN: ${env:SENTRY_DSN}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - ec2:CreateNetworkInterface
+            - ec2:DeleteNetworkInterface
+            - ec2:DescribeNetworkInterfaces
+            - ec2:DetachNetworkInterface
+            - sqs:ReceiveMessage
+            - sqs:SendMessage
+            - sqs:GetQueueUrl
+            - sqs:GetQueueAttributes
+            - sqs:DeleteMessage
+            - s3:GetObject
+            - s3:PutObject
+            - s3:PutObjectAcl
+            - s3:ListBucket
+            - s3:DeleteObject
+            - s3:GetObjectAttributes
+          Resource: '*'
+
+custom:
+  logRetentionInDays: 14
+  pythonRequirements:
+    dockerizePip: non-linux
+    fileName: requirements-base.txt
+
+
+functions:
+  - ${file(./serverless/functions-routers.yml)}
+  - ${file(./serverless/functions-tasks.yml)}
+resources:
+  Resources: ${file(./serverless/resources.yml)}
